@@ -2,6 +2,8 @@
 title Open Toontown - AI (District) Server
 cd..
 
+set PYTHONPATH=%CD%\Native\bin;%PYTHONPATH%
+
 rem Read the contents of PPYTHON_PATH into %PPYTHON_PATH%:
 set /P PPYTHON_PATH=<PPYTHON_PATH
 

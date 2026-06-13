@@ -1,23 +1,64 @@
-IndentWidth: 4
-Language: Cpp
-UseTab: Never
-ColumnLimit: 120
-PointerAlignment: Left
-BreakBeforeBraces: Attach
-SpaceAfterCStyleCast: false
-Cpp11BracedListStyle: false
-IndentCaseLabels: true
-BinPackArguments: true
-BinPackParameters: true
-AlignAfterOpenBracket: Align
-AlignOperands: true
-BreakBeforeTernaryOperators: true
-BreakBeforeBinaryOperators: None
-AllowShortBlocksOnASingleLine: true
-AllowShortIfStatementsOnASingleLine: false
+---
+BasedOnStyle: Google
+AlignArrayOfStructures: Left
+AlignConsecutiveAssignments:
+  Enabled: true
+  AlignCompound: true
+  AlignFunctionDeclarations: true
+  AlignFunctionPointers: true
+AlignConsecutiveBitFields:
+  Enabled: true
+  AlignCompound: true
+  AlignFunctionDeclarations: true
+  AlignFunctionPointers: true
+  PadOperators: true
+AlignConsecutiveDeclarations:
+  Enabled: true
+  AlignCompound: true
+  AlignFunctionPointers: true
+  PadOperators: true
+AlignConsecutiveMacros:
+  Enabled: true
+  AlignCompound: true
+  AlignFunctionDeclarations: true
+  AlignFunctionPointers: true
+  PadOperators: true
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+  AlignCaseArrows: true
+  AlignCaseColons: true
+AlignEscapedNewlines: LeftWithLastLine
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowBreakBeforeNoexceptSpecifier: Always
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: false
-AlignEscapedNewlines: Left
-AlignTrailingComments: true
-SortIncludes: false
+BinPackArguments: false
+BinPackLongBracedList: false
+BinPackParameters: OnePerLine
+BreakAfterAttributes: Never
+BreakBeforeBraces: Allman
+BreakBinaryOperations: RespectPrecedence
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 2
+EnumTrailingComma: Insert
+ExperimentalAutoDetectBinPacking: true
+IncludeBlocks: Preserve
+IndentPPDirectives: AfterHash
+InsertBraces: true
+InsertNewlineAtEOF: true
+NamespaceIndentation: All
+SortIncludes:
+  Enabled: false
+SpacesInParens: Custom
+SpacesInParensOptions:
+  ExceptDoubleParentheses: true
+  InConditionalStatements: true
+  Other: true
+Standard: Latest
+TabWidth: 4
+Language: Cpp

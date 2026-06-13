@@ -2,7 +2,8 @@
 title Open Toontown - Game Client
 cd..
 
-rem Read the contents of PPYTHON_PATH into %PPYTHON_PATH%:
+set PYTHONPATH=%CD%\Native\bin;%PYTHONPATH%
+
 set /P PPYTHON_PATH=<PPYTHON_PATH
 
 set /P LOGIN_TOKEN=Login token [dev]: 
