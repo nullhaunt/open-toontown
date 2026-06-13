@@ -6,7 +6,7 @@ NB_MODULE( toontown_cpp, module )
   RegisterMinigameDropScheduler( minigame );
 
   auto safezone = module.def_submodule( "safezone" );
-  RegisterSafezoneCheckersBoard( safezone );
+  RegisterSafeZoneCheckerboard( safezone );
 
   auto math = module.def_submodule( "math" );
   RegisterMathBoundary( math );

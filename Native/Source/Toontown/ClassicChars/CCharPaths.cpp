@@ -195,48 +195,48 @@ namespace Toontown::ClassicChars
   }
 }  // namespace Toontown::ClassicChars
 
-void RegisterClassicCharsCCharPaths( nanobind::module_& classicchars )
+void RegisterClassicCharsCCharPaths( nanobind::module_& classicChars )
 {
   using namespace Toontown::ClassicChars;
 
   // Opaque token returned by the shim's getPaths and passed back to the
   // queries.
-  nanobind::class_<CharPaths>( classicchars, "CharPaths" );
+  nanobind::class_<CharPaths>( classicChars, "CharPaths" );
 
-  classicchars.def( "_getCharPaths",
+  classicChars.def( "_getCharPaths",
                     &GetCharPaths,
                     nanobind::arg( "key" ),
                     nanobind::rv_policy::reference );
-  classicchars.def( "getNodePos",
+  classicChars.def( "getNodePos",
                     &GetNodePos,
                     nanobind::arg( "node" ),
                     nanobind::arg( "paths" ) );
-  classicchars.def( "getAdjacentNodes",
+  classicChars.def( "getAdjacentNodes",
                     &GetAdjacentNodes,
                     nanobind::arg( "node" ),
                     nanobind::arg( "paths" ) );
-  classicchars.def( "getWayPoints",
+  classicChars.def( "getWayPoints",
                     &GetWaypoints,
                     nanobind::arg( "fromNode" ),
                     nanobind::arg( "toNode" ),
                     nanobind::arg( "paths" ) );
-  classicchars.def( "getRaycastFlag",
+  classicChars.def( "getRaycastFlag",
                     &GetRayCastFlag,
                     nanobind::arg( "fromNode" ),
                     nanobind::arg( "toNode" ),
                     nanobind::arg( "paths" ) );
-  classicchars.def( "getPointsFromTo",
+  classicChars.def( "getPointsFromTo",
                     &GetPointsFromTo,
                     nanobind::arg( "fromNode" ),
                     nanobind::arg( "toNode" ),
                     nanobind::arg( "paths" ) );
-  classicchars.def( "getWalkDuration",
+  classicChars.def( "getWalkDuration",
                     &GetWalkDuration,
                     nanobind::arg( "fromNode" ),
                     nanobind::arg( "toNode" ),
                     nanobind::arg( "velocity" ),
                     nanobind::arg( "paths" ) );
-  classicchars.def( "getWalkDistance",
+  classicChars.def( "getWalkDistance",
                     &GetWalkDistance,
                     nanobind::arg( "fromNode" ),
                     nanobind::arg( "toNode" ),

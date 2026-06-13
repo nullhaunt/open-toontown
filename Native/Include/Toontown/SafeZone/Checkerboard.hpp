@@ -3,16 +3,16 @@
 #include <vector>
 #include <optional>
 
-namespace Toontown::Safezone
+namespace Toontown::SafeZone
 {
   /**
    * A single board square.  adjacent/jump hold four entries each; a missing
    * neighbor is std::nullopt (Python's None).
    */
-  class CheckersTile
+  class CheckerTile
   {
    public:
-    explicit CheckersTile( int tile );
+    explicit CheckerTile( int tile );
 
     [[nodiscard]] std::vector<std::optional<int>> GetAdjacent() const;
     [[nodiscard]] std::vector<std::optional<int>> GetJumps() const;
@@ -36,15 +36,15 @@ namespace Toontown::Safezone
     std::vector<std::optional<int>> m_Jumps;
   };
 
-  class CheckersBoard
+  class Checkerboard
   {
    public:
-    CheckersBoard();
+    Checkerboard();
 
     /**
      * Live reference into the board; callers mutate tiles through it.
      */
-    [[nodiscard]] CheckersTile& GetSquare( int arrayLoc );
+    [[nodiscard]] CheckerTile& GetSquare( int arrayLoc );
 
     [[nodiscard]] int GetState( int square ) const;
     void              SetState( int square, int state );
@@ -63,9 +63,9 @@ namespace Toontown::Safezone
      * Backs Python's .squareList attribute.  Returned by reference so element
      * access yields live tiles (bound via nanobind::bind_vector).
      */
-    [[nodiscard]] std::vector<CheckersTile>& SquareList();
+    [[nodiscard]] std::vector<CheckerTile>& SquareList();
 
    private:
-    std::vector<CheckersTile> m_SquareList;
+    std::vector<CheckerTile> m_SquareList;
   };
-}  // namespace Toontown::Safezone
+}  // namespace Toontown::SafeZone

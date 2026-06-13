@@ -1,11 +1,11 @@
-#include "Toontown/Safezone/CheckersBoard.hpp"
+#include "Toontown/SafeZone/Checkerboard.hpp"
 
 #include <nanobind/stl/optional.h>
 #include <nanobind/stl/vector.h>
 
 #include "Registry.hpp"
 
-namespace Toontown::Safezone
+namespace Toontown::SafeZone
 {
   namespace
   {
@@ -126,23 +126,23 @@ namespace Toontown::Safezone
     }
   }  // namespace
 
-  CheckersTile::CheckersTile( int tile )
+  CheckerTile::CheckerTile( int tile )
     : m_Tile( tile )
     , m_State( 0 )
   {
   }
 
-  std::vector<std::optional<int>> CheckersTile::GetAdjacent() const
+  std::vector<std::optional<int>> CheckerTile::GetAdjacent() const
   {
     return m_Adjacent;
   }
 
-  std::vector<std::optional<int>> CheckersTile::GetJumps() const
+  std::vector<std::optional<int>> CheckerTile::GetJumps() const
   {
     return m_Jumps;
   }
 
-  void CheckersTile::SetAdjacent(
+  void CheckerTile::SetAdjacent(
     const std::vector<std::optional<int>>& adjList )
   {
     for ( const auto& x : adjList )
@@ -151,7 +151,7 @@ namespace Toontown::Safezone
     }
   }
 
-  void CheckersTile::SetJumps( const std::vector<std::optional<int>>& jumpList )
+  void CheckerTile::SetJumps( const std::vector<std::optional<int>>& jumpList )
   {
     for ( const auto& x : jumpList )
     {
@@ -159,24 +159,24 @@ namespace Toontown::Safezone
     }
   }
 
-  int CheckersTile::GetState() const
+  int CheckerTile::GetState() const
   {
     return m_State;
   }
 
-  void CheckersTile::SetState( int state )
+  void CheckerTile::SetState( int state )
   {
     m_State = state;
   }
 
-  int CheckersTile::GetTile() const
+  int CheckerTile::GetTile() const
   {
     return m_Tile;
   }
 
-  void CheckersTile::Delete() {}
+  void CheckerTile::Delete() {}
 
-  CheckersBoard::CheckersBoard()
+  Checkerboard::Checkerboard()
   {
     m_SquareList.reserve( 32 );  // Keep element references stable
 
@@ -192,32 +192,32 @@ namespace Toontown::Safezone
     }
   }
 
-  CheckersTile& CheckersBoard::GetSquare( int arrayLoc )
+  CheckerTile& Checkerboard::GetSquare( int arrayLoc )
   {
     return m_SquareList[ arrayLoc ];
   }
 
-  int CheckersBoard::GetState( int square ) const
+  int Checkerboard::GetState( int square ) const
   {
     return m_SquareList[ square ].GetState();
   }
 
-  void CheckersBoard::SetState( int square, int state )
+  void Checkerboard::SetState( int square, int state )
   {
     m_SquareList[ square ].SetState( state );
   }
 
-  std::vector<std::optional<int>> CheckersBoard::GetAdjacent( int square ) const
+  std::vector<std::optional<int>> Checkerboard::GetAdjacent( int square ) const
   {
     return m_SquareList[ square ].GetAdjacent();
   }
 
-  std::vector<std::optional<int>> CheckersBoard::GetJumps( int square ) const
+  std::vector<std::optional<int>> Checkerboard::GetJumps( int square ) const
   {
     return m_SquareList[ square ].GetJumps();
   }
 
-  std::vector<int> CheckersBoard::GetStates() const
+  std::vector<int> Checkerboard::GetStates() const
   {
     std::vector<int> result;
     result.reserve( 32 );
@@ -230,7 +230,7 @@ namespace Toontown::Safezone
     return result;
   }
 
-  void CheckersBoard::SetStates( const std::vector<int>& squares )
+  void Checkerboard::SetStates( const std::vector<int>& squares )
   {
     for ( int x = 0; x < 32; ++x )
     {
@@ -238,51 +238,50 @@ namespace Toontown::Safezone
     }
   }
 
-  void CheckersBoard::Delete() {}
+  void Checkerboard::Delete() {}
 
-  std::vector<CheckersTile>& CheckersBoard::SquareList()
+  std::vector<CheckerTile>& Checkerboard::SquareList()
   {
     return m_SquareList;
   }
-}  // namespace Toontown::Safezone
+}  // namespace Toontown::SafeZone
 
-void RegisterSafezoneCheckersBoard( nanobind::module_& safezone )
+void RegisterSafeZoneCheckerboard( nanobind::module_& safeZone )
 {
-  using namespace Toontown::Safezone;
+  using namespace Toontown::SafeZone;
 
-  nanobind::class_<CheckersTile>( safezone, "CheckersTile" )
+  nanobind::class_<CheckerTile>( safeZone, "CheckersTile" )
     .def( nanobind::init<int>(), nanobind::arg( "tileNum" ) )
-    .def( "getAdjacent", &CheckersTile::GetAdjacent )
-    .def( "getJumps", &CheckersTile::GetJumps )
-    .def(
-      "setAdjacent", &CheckersTile::SetAdjacent, nanobind::arg( "adjList" ) )
-    .def( "setJumps", &CheckersTile::SetJumps, nanobind::arg( "jumpList" ) )
-    .def( "getState", &CheckersTile::GetState )
-    .def( "setState", &CheckersTile::SetState, nanobind::arg( "newState" ) )
-    .def( "getNum", &CheckersTile::GetTile )
-    .def( "delete", &CheckersTile::Delete )
-    .def_prop_ro( "adjacent", &CheckersTile::GetAdjacent )
-    .def_prop_ro( "jumps", &CheckersTile::GetJumps )
-    .def_prop_ro( "tileNum", &CheckersTile::GetTile )
-    .def_prop_ro( "state", &CheckersTile::GetState );
+    .def( "getAdjacent", &CheckerTile::GetAdjacent )
+    .def( "getJumps", &CheckerTile::GetJumps )
+    .def( "setAdjacent", &CheckerTile::SetAdjacent, nanobind::arg( "adjList" ) )
+    .def( "setJumps", &CheckerTile::SetJumps, nanobind::arg( "jumpList" ) )
+    .def( "getState", &CheckerTile::GetState )
+    .def( "setState", &CheckerTile::SetState, nanobind::arg( "newState" ) )
+    .def( "getNum", &CheckerTile::GetTile )
+    .def( "delete", &CheckerTile::Delete )
+    .def_prop_ro( "adjacent", &CheckerTile::GetAdjacent )
+    .def_prop_ro( "jumps", &CheckerTile::GetJumps )
+    .def_prop_ro( "tileNum", &CheckerTile::GetTile )
+    .def_prop_ro( "state", &CheckerTile::GetState );
 
-  nanobind::class_<CheckersBoard>( safezone, "CheckersBoard" )
+  nanobind::class_<Checkerboard>( safeZone, "CheckersBoard" )
     .def( nanobind::init() )
     .def( "getSquare",
-          &CheckersBoard::GetSquare,
+          &Checkerboard::GetSquare,
           nanobind::arg( "arrayLoc" ),
           nanobind::rv_policy::reference_internal )
-    .def( "getState", &CheckersBoard::GetState, nanobind::arg( "squareNum" ) )
+    .def( "getState", &Checkerboard::GetState, nanobind::arg( "squareNum" ) )
     .def( "setState",
-          &CheckersBoard::SetState,
+          &Checkerboard::SetState,
           nanobind::arg( "squareNum" ),
           nanobind::arg( "newState" ) )
     .def(
-      "getAdjacent", &CheckersBoard::GetAdjacent, nanobind::arg( "squareNum" ) )
-    .def( "getJumps", &CheckersBoard::GetJumps, nanobind::arg( "squareNum" ) )
-    .def( "getStates", &CheckersBoard::GetStates )
-    .def( "setStates", &CheckersBoard::SetStates, nanobind::arg( "squares" ) )
-    .def( "delete", &CheckersBoard::Delete )
+      "getAdjacent", &Checkerboard::GetAdjacent, nanobind::arg( "squareNum" ) )
+    .def( "getJumps", &Checkerboard::GetJumps, nanobind::arg( "squareNum" ) )
+    .def( "getStates", &Checkerboard::GetStates )
+    .def( "setStates", &Checkerboard::SetStates, nanobind::arg( "squares" ) )
+    .def( "delete", &Checkerboard::Delete )
     // squareList is a real Python list whose elements are live references into
     // the board (reference_internal + self as keep-alive parent), so mutations
     // like board.squareList[ i ].setState( 0 ) reach the actual tiles.
@@ -293,7 +292,7 @@ void RegisterSafezoneCheckersBoard( nanobind::module_& safezone )
     // to stay real lists.
     .def_prop_ro(
       "squareList",
-      []( CheckersBoard& board )
+      []( Checkerboard& board )
       {
         const nanobind::handle self = nanobind::find( &board );
         nanobind::list         squares;
