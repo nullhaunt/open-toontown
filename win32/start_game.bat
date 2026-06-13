@@ -2,7 +2,7 @@
 title Open Toontown - Game Client
 cd..
 
-set PYTHONPATH=%CD%\Native\bin;%PYTHONPATH%
+set PYTHONPATH=%CD%\Native\Binary;%PYTHONPATH%
 
 set /P PPYTHON_PATH=<PPYTHON_PATH
 

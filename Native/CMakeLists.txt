@@ -19,12 +19,13 @@ nanobind_add_module(toontown_cpp
         Source/Toontown/Minigame/DropScheduler.cpp
         Source/Toontown/Safezone/CheckersBoard.cpp
         Source/Toontown/Math/MathBoundary.cpp
+        Source/Toontown/ClassicChars/CCharPaths.cpp
 )
 
 target_include_directories(toontown_cpp PRIVATE Include Source)
 
 set_target_properties(toontown_cpp PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-        LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/bin"
-        LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/bin"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Binary"
+        LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/Binary"
+        LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/Binary"
 )

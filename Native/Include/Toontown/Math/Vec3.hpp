@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 namespace Toontown::Math
 {
   struct Vec3
@@ -17,5 +19,14 @@ namespace Toontown::Math
     }
 
     friend constexpr bool operator==( const Vec3&, const Vec3& ) = default;
+
+    /**
+     * float-precision magnitude, matching Panda's single-precision
+     * LVecBase3f::length() so distance math is bit-identical.
+     */
+    [[nodiscard]] float Length() const
+    {
+      return std::sqrt( m_X * m_X + m_Y * m_Y + m_Z * m_Z );
+    }
   };
 }  // namespace Toontown::Math

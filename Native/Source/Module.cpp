@@ -10,4 +10,7 @@ NB_MODULE( toontown_cpp, module )
 
   auto math = module.def_submodule( "math" );
   RegisterMathBoundary( math );
+
+  auto classicchars = module.def_submodule( "classicchars" );
+  RegisterClassicCharsCCharPaths( classicchars );
 }

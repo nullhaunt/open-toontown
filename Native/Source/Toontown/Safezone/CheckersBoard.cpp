@@ -283,16 +283,14 @@ void RegisterSafezoneCheckersBoard( nanobind::module_& safezone )
     .def( "getStates", &CheckersBoard::GetStates )
     .def( "setStates", &CheckersBoard::SetStates, nanobind::arg( "squares" ) )
     .def( "delete", &CheckersBoard::Delete )
-    /**
-     * squareList is a real Python list whose elements are live references into
-     * the board (reference_internal + self as keep-alive parent), so mutations
-     * like board.squareList[ i ].setState( 0 ) reach the actual tiles.
-     *
-     * A real list is required because callers index it; the reference is
-     * required because they mutate through it.  bind_vector would give both,
-     * but conflicts with the std::vector caster the adjacency/jump lists need
-     * to stay real lists.
-     */
+    // squareList is a real Python list whose elements are live references into
+    // the board (reference_internal + self as keep-alive parent), so mutations
+    // like board.squareList[ i ].setState( 0 ) reach the actual tiles.
+    //
+    // A real list is required because callers index it; the reference is
+    // required because they mutate through it.  bind_vector would give both,
+    // but conflicts with the std::vector caster the adjacency/jump lists need
+    // to stay real lists.
     .def_prop_ro(
       "squareList",
       []( CheckersBoard& board )

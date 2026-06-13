@@ -47,9 +47,9 @@ namespace Toontown::Minigame
   }
 
   /**
-   * BUG: The original code branches on `continuous is None`, not the value:
-   *    if continuous is None:  continuous = False
-   *    else:                   continuous = True
+   * The original code branches on `continuous is None`, not the value:
+   *  if continuous is None:  continuous = False
+   *  else:                   continuous = True
    *
    * Ergo, any supplied argument is treated as continuous, including
    * IsDoneDropping( false ) -- only an omitted/None argument yields false.

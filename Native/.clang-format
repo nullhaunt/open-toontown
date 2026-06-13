@@ -51,8 +51,11 @@ InsertBraces: true
 InsertNewlineAtEOF: true
 NamespaceIndentation: All
 PackConstructorInitializers: BinPack
+PointerAlignment: Middle
+QualifierAlignment: Left
 SortIncludes:
   Enabled: false
+SpaceAroundPointerQualifiers: Both
 SpacesInParens: Custom
 SpacesInParensOptions:
   ExceptDoubleParentheses: true
