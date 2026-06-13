@@ -27,7 +27,7 @@ tt-specific-login 1
 collect-tcp 1
 
 # Developer Options
-want-dev 0
+want-dev 1
 schellgames-dev 0
 
 # DC Files
