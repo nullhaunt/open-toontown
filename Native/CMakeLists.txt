@@ -17,6 +17,7 @@ FetchContent_MakeAvailable(nanobind)
 nanobind_add_module(toontown_cpp
         Source/Module.cpp
         Source/Toontown/Minigame/DropScheduler.cpp
+        Source/Toontown/Safezone/CheckersBoard.cpp
 )
 
 target_include_directories(toontown_cpp PRIVATE Include Source)

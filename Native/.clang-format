@@ -1,6 +1,5 @@
 ---
 BasedOnStyle: Google
-AlignArrayOfStructures: Left
 AlignConsecutiveAssignments:
   Enabled: true
   AlignCompound: true
@@ -28,8 +27,6 @@ AlignConsecutiveShortCaseStatements:
   AlignCaseArrows: true
   AlignCaseColons: true
 AlignEscapedNewlines: LeftWithLastLine
-AllowAllArgumentsOnNextLine: false
-AllowAllParametersOfDeclarationOnNextLine: false
 AllowBreakBeforeNoexceptSpecifier: Always
 AllowShortEnumsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty
@@ -40,6 +37,7 @@ BinPackLongBracedList: false
 BinPackParameters: OnePerLine
 BreakAfterAttributes: Never
 BreakBeforeBraces: Allman
+BreakBeforeInlineASMColon: Always
 BreakBinaryOperations: RespectPrecedence
 BreakConstructorInitializers: BeforeComma
 BreakInheritanceList: BeforeComma
@@ -52,6 +50,7 @@ IndentPPDirectives: AfterHash
 InsertBraces: true
 InsertNewlineAtEOF: true
 NamespaceIndentation: All
+PackConstructorInitializers: BinPack
 SortIncludes:
   Enabled: false
 SpacesInParens: Custom
@@ -59,6 +58,7 @@ SpacesInParensOptions:
   ExceptDoubleParentheses: true
   InConditionalStatements: true
   Other: true
+SpacesInSquareBrackets: true
 Standard: Latest
 TabWidth: 4
 Language: Cpp

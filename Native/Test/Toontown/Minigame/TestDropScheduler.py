@@ -127,4 +127,4 @@ if fails:
     print(f"\n{fails} mismatch(es).")
     sys.exit(1)
 
-print("All checks passed.")
+print("All checks passed: C++ output is identical to the Python.")
