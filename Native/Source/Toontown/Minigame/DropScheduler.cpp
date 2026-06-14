@@ -152,14 +152,20 @@ void RegisterMinigameDropScheduler( nanobind::module_& minigame )
           nanobind::arg( "fasterDropDelay" ),
           nanobind::arg( "fasterDropPeriodMult" ),
           nanobind::arg( "startTime" ) = std::optional<double>() )
+
     .def( "getT", &DropScheduler::GetTime )
+
     .def( "getDuration", &DropScheduler::GetDuration )
+
     .def( "getDropPeriod", &DropScheduler::GetDropPeriod )
+
     .def( "doneDropping",
           &DropScheduler::IsDoneDropping,
           nanobind::arg( "continuous" ) = std::optional<bool>() )
+
     .def(
       "skipPercent", &DropScheduler::SkipPercent, nanobind::arg( "percent" ) )
+
     .def( "stepT", &DropScheduler::Step );
 
   nanobind::class_<ThreePhaseDropScheduler, DropScheduler>(

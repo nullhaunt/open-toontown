@@ -32,6 +32,7 @@ AllowShortEnumsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
+AlwaysBreakBeforeMultilineStrings: false
 BinPackArguments: false
 BinPackLongBracedList: false
 BinPackParameters: OnePerLine

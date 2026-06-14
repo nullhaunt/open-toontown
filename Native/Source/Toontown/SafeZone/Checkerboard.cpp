@@ -252,36 +252,57 @@ void RegisterSafeZoneCheckerboard( nanobind::module_& safeZone )
 
   nanobind::class_<CheckerTile>( safeZone, "CheckersTile" )
     .def( nanobind::init<int>(), nanobind::arg( "tileNum" ) )
+
     .def( "getAdjacent", &CheckerTile::GetAdjacent )
+
     .def( "getJumps", &CheckerTile::GetJumps )
+
     .def( "setAdjacent", &CheckerTile::SetAdjacent, nanobind::arg( "adjList" ) )
+
     .def( "setJumps", &CheckerTile::SetJumps, nanobind::arg( "jumpList" ) )
+
     .def( "getState", &CheckerTile::GetState )
+
     .def( "setState", &CheckerTile::SetState, nanobind::arg( "newState" ) )
+
     .def( "getNum", &CheckerTile::GetTile )
+
     .def( "delete", &CheckerTile::Delete )
+
     .def_prop_ro( "adjacent", &CheckerTile::GetAdjacent )
+
     .def_prop_ro( "jumps", &CheckerTile::GetJumps )
+
     .def_prop_ro( "tileNum", &CheckerTile::GetTile )
+
     .def_prop_ro( "state", &CheckerTile::GetState );
 
   nanobind::class_<Checkerboard>( safeZone, "CheckersBoard" )
     .def( nanobind::init() )
+
     .def( "getSquare",
           &Checkerboard::GetSquare,
           nanobind::arg( "arrayLoc" ),
           nanobind::rv_policy::reference_internal )
+
     .def( "getState", &Checkerboard::GetState, nanobind::arg( "squareNum" ) )
+
     .def( "setState",
           &Checkerboard::SetState,
           nanobind::arg( "squareNum" ),
           nanobind::arg( "newState" ) )
+
     .def(
       "getAdjacent", &Checkerboard::GetAdjacent, nanobind::arg( "squareNum" ) )
+
     .def( "getJumps", &Checkerboard::GetJumps, nanobind::arg( "squareNum" ) )
+
     .def( "getStates", &Checkerboard::GetStates )
+
     .def( "setStates", &Checkerboard::SetStates, nanobind::arg( "squares" ) )
+
     .def( "delete", &Checkerboard::Delete )
+
     // squareList is a real Python list whose elements are live references into
     // the board (reference_internal + self as keep-alive parent), so mutations
     // like board.squareList[ i ].setState( 0 ) reach the actual tiles.

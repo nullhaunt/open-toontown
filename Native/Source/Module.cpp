@@ -13,4 +13,7 @@ NB_MODULE( toontown_cpp, module )
 
   auto classicchars = module.def_submodule( "classicchars" );
   RegisterClassicCharsCCharPaths( classicchars );
+
+  auto suit = module.def_submodule( "suit" );
+  RegisterSuitDNA( suit );
 }

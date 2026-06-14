@@ -207,35 +207,42 @@ void RegisterClassicCharsCCharPaths( nanobind::module_& classicChars )
                     &GetCharPaths,
                     nanobind::arg( "key" ),
                     nanobind::rv_policy::reference );
+
   classicChars.def( "getNodePos",
                     &GetNodePos,
                     nanobind::arg( "node" ),
                     nanobind::arg( "paths" ) );
+
   classicChars.def( "getAdjacentNodes",
                     &GetAdjacentNodes,
                     nanobind::arg( "node" ),
                     nanobind::arg( "paths" ) );
+
   classicChars.def( "getWayPoints",
                     &GetWaypoints,
                     nanobind::arg( "fromNode" ),
                     nanobind::arg( "toNode" ),
                     nanobind::arg( "paths" ) );
+
   classicChars.def( "getRaycastFlag",
                     &GetRayCastFlag,
                     nanobind::arg( "fromNode" ),
                     nanobind::arg( "toNode" ),
                     nanobind::arg( "paths" ) );
+
   classicChars.def( "getPointsFromTo",
                     &GetPointsFromTo,
                     nanobind::arg( "fromNode" ),
                     nanobind::arg( "toNode" ),
                     nanobind::arg( "paths" ) );
+
   classicChars.def( "getWalkDuration",
                     &GetWalkDuration,
                     nanobind::arg( "fromNode" ),
                     nanobind::arg( "toNode" ),
                     nanobind::arg( "velocity" ),
                     nanobind::arg( "paths" ) );
+
   classicChars.def( "getWalkDistance",
                     &GetWalkDistance,
                     nanobind::arg( "fromNode" ),
