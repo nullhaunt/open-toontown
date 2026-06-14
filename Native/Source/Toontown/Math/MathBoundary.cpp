@@ -5,10 +5,8 @@
 
 namespace
 {
-  /**
-   * Round-trips a Vec3 through the native type, negating it so the test can
-   * confirm the value actually crossed into C++ and back (not passed through).
-   */
+  // Round-trips a Vec3 through the native type, negating it so the test can
+  // confirm the value actually crossed into C++ and back (not passed through).
   Toontown::Math::Vec3 NegateVec3( Toontown::Math::Vec3 v )
   {
     return { -v.m_X, -v.m_Y, -v.m_Z };
@@ -20,7 +18,7 @@ namespace
   }
 }  // namespace
 
-void RegisterMathBoundary( nanobind::module_& math )
+void RegisterMathBoundary( nanobind::module_ & math )
 {
   math.def( "_acltestNegateVec3", &NegateVec3, nanobind::arg( "v" ) );
   math.def( "_acltestNegatePoint3", &NegatePoint3, nanobind::arg( "p" ) );

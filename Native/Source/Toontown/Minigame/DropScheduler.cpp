@@ -46,19 +46,18 @@ namespace Toontown::Minigame
     return delay;
   }
 
-  /**
-   * The original code branches on `continuous is None`, not the value:
-   *  if continuous is None:  continuous = False
-   *  else:                   continuous = True
-   *
-   * Ergo, any supplied argument is treated as continuous, including
-   * IsDoneDropping( false ) -- only an omitted/None argument yields false.
-   * This contradicts the parameter's name, but no live caller passes false, so
-   * it is harmless.
-   *
-   * has_value() mirrors the `is None` test exactly: preserved deliberately for
-   * behavioral parity.
-   */
+  // The original code branches on `continuous is None`, not the value:
+  //
+  //    if continuous is None:  continuous = False
+  //    else:                   continuous = True
+  //
+  // Ergo, any supplied argument is treated as continuous, including
+  // IsDoneDropping(false) -- only an omitted/None argument yields false.  This
+  // contradicts the parameter's name, but no live caller passes false, so it
+  // is harmless.
+  //
+  // has_value() mirrors the `is None` test exactly: preserved deliberately for
+  // behavioral parity.
   bool DropScheduler::IsDoneDropping( std::optional<bool> isContinuous ) const
   {
     const double landTime = m_Time - m_StartTime + m_MaxDropDuration;
@@ -133,7 +132,7 @@ namespace Toontown::Minigame
   }
 }  // namespace Toontown::Minigame
 
-void RegisterMinigameDropScheduler( nanobind::module_& minigame )
+void RegisterMinigameDropScheduler( nanobind::module_ & minigame )
 {
   using namespace Toontown::Minigame;
 

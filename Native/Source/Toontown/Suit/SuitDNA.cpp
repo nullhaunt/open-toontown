@@ -9,6 +9,8 @@
 #include <nanobind/stl/string.h>
 #include <nanobind/stl/vector.h>
 
+#include "Toontown/Util/PyRandom.hpp"
+#include "Toontown/Util/Datagram.hpp"
 #include "Registry.hpp"
 
 namespace Toontown::Suit
@@ -62,6 +64,7 @@ namespace Toontown::Suit
                                                     "tf",
                                                     "m",
                                                     "mh" };
+
     const std::vector<std::string> SUIT_B_TYPES = {
       "p", "ds", "b", "ac", "sd", "bc", "ls", "tm", "ms" };
 
@@ -76,19 +79,22 @@ namespace Toontown::Suit
 
     constexpr int SUITS_PER_DEPT = 8;
 
-    std::mt19937& Random()
+    Util::PyRandom & Random()
     {
-      static std::mt19937 engine{ std::random_device{}() };
+      static Util::PyRandom engine{
+        static_cast<std::uint64_t>( std::random_device{}() ) << 32 |
+        std::random_device{}() };
+
       return engine;
     }
 
-    // Inclusive, matching Python randint
+    // Inclusive, matching Python randint: a + _randBelow(b - a + 1).
     int RandomInteger( int min, int max )
     {
-      return std::uniform_int_distribution( min, max )( Random() );
+      return static_cast<int>( Random().Integer( min, max ) );
     }
 
-    int IndexOf( const std::vector<std::string>& v, const std::string& s )
+    int IndexOf( const std::vector<std::string> & v, const std::string & s )
     {
       for ( std::size_t i = 0; i < v.size(); ++i )
       {
@@ -101,31 +107,13 @@ namespace Toontown::Suit
       return -1;
     }
 
-    bool Contains( const std::vector<std::string>& v, const std::string& s )
+    bool Contains( const std::vector<std::string> & v, const std::string & s )
     {
       return IndexOf( v, s ) >= 0;
     }
-
-    // PyDatagram.addFixedString: exactly n bytes, null-padded or truncated.
-    std::string FixedString( const std::string& s, std::size_t length )
-    {
-      std::string result = s.substr( 0, length );
-      result.resize( length, '\0' );
-      return result;
-    }
-
-    // DatagramIterator.getFixedString: read n bytes, truncate at first null.
-    std::string ReadFixedString( const std::string& bytes,
-                                 std::size_t        offset,
-                                 std::size_t        length )
-    {
-      std::string field = bytes.substr( offset, length );
-      const auto  nul   = field.find( '\0' );
-      return nul == std::string::npos ? field : field.substr( 0, nul );
-    }
   }  // namespace
 
-  std::string GetSuitBodyType( const std::string& name )
+  std::string GetSuitBodyType( const std::string & name )
   {
     if ( Contains( SUIT_A_TYPES, name ) )
     {
@@ -146,7 +134,7 @@ namespace Toontown::Suit
     return "";
   }
 
-  std::string GetSuitDept( const std::string& name )
+  std::string GetSuitDept( const std::string & name )
   {
     const int index = IndexOf( SUIT_HEAD_TYPES, name );
 
@@ -178,7 +166,7 @@ namespace Toontown::Suit
     return "";
   }
 
-  int GetSuitType( const std::string& name )
+  int GetSuitType( const std::string & name )
   {
     return IndexOf( SUIT_HEAD_TYPES, name ) % SUITS_PER_DEPT + 1;
   }
@@ -188,24 +176,26 @@ namespace Toontown::Suit
     return RandomInteger( std::max( level - 4, 1 ), std::min( level, 8 ) );
   }
 
-  std::string GetRandomSuitByDept( const std::string& dept )
+  std::string GetRandomSuitByDept( const std::string & dept )
   {
     const int deptNumber = IndexOf( SUIT_DEPTS, dept );
     return SUIT_HEAD_TYPES[ SUITS_PER_DEPT * deptNumber +
                             RandomInteger( 0, 7 ) ];
   }
+
   std::string SuitDNA::MakeNetString() const
   {
-    std::string datagram = FixedString( m_Type, 1 );
+    Util::Datagram datagram;
+    datagram.AddFixedString( m_Type, 1 );
 
     if ( m_Type == "s" )
     {
-      datagram += FixedString( m_Name, 3 );
-      datagram += FixedString( m_Dept, 1 );
+      datagram.AddFixedString( m_Name, 3 );
+      datagram.AddFixedString( m_Dept, 1 );
     }
     else if ( m_Type == "b" )
     {
-      datagram += FixedString( m_Dept, 1 );
+      datagram.AddFixedString( m_Dept, 1 );
     }
     else
     {
@@ -213,21 +203,23 @@ namespace Toontown::Suit
         "SuitDNA::MakeNetString: undefined/unknown type" );
     }
 
-    return datagram;
+    return datagram.GetBytes();
   }
 
-  void SuitDNA::MakeFromNetString( const std::string& bytes )
+  void SuitDNA::MakeFromNetString( const std::string & bytes )
   {
-    m_Type = ReadFixedString( bytes, 0, 1 );
+    Util::DatagramIterator it( bytes );
+
+    m_Type = it.GetFixedString( 1 );
     if ( m_Type == "s" )
     {
-      m_Name = ReadFixedString( bytes, 1, 3 );
-      m_Dept = ReadFixedString( bytes, 4, 1 );
+      m_Name = it.GetFixedString( 3 );
+      m_Dept = it.GetFixedString( 1 );
       m_Body = GetSuitBodyType( m_Name );
     }
     else if ( m_Type == "b" )
     {
-      m_Dept = ReadFixedString( bytes, 1, 1 );
+      m_Dept = it.GetFixedString( 1 );
     }
     else
     {
@@ -243,7 +235,7 @@ namespace Toontown::Suit
     m_Body = GetSuitBodyType( m_Name );
   }
 
-  void SuitDNA::NewBossCog( const std::string& dept )
+  void SuitDNA::NewBossCog( const std::string & dept )
   {
     m_Type = "b";
     m_Dept = dept;
@@ -346,7 +338,7 @@ namespace Toontown::Suit
   }
 }  // namespace Toontown::Suit
 
-void RegisterSuitDNA( nanobind::module_& suit )
+void RegisterSuitDNA( nanobind::module_ & suit )
 {
   using namespace Toontown::Suit;
 
@@ -375,7 +367,7 @@ void RegisterSuitDNA( nanobind::module_& suit )
   nanobind::class_<SuitDNA>( suit, "SuitDNA" )
     .def(
       "__init__",
-      []( SuitDNA* self, nanobind::object str, nanobind::object type )
+      []( SuitDNA * self, nanobind::object str, nanobind::object type )
       {
         new ( self ) SuitDNA();
 
@@ -406,7 +398,7 @@ void RegisterSuitDNA( nanobind::module_& suit )
     .def_rw( "body", &SuitDNA::m_Body )
 
     .def( "makeNetString",
-          []( const SuitDNA& dna )
+          []( const SuitDNA & dna )
           {
             const std::string net = dna.MakeNetString();
             return nanobind::bytes( net.data(), net.size() );
@@ -414,7 +406,7 @@ void RegisterSuitDNA( nanobind::module_& suit )
 
     .def(
       "makeFromNetString",
-      []( SuitDNA& dna, nanobind::bytes bytes )
+      []( SuitDNA & dna, nanobind::bytes bytes )
       { dna.MakeFromNetString( std::string( bytes.c_str(), bytes.size() ) ); },
 
       nanobind::arg( "string" ) )

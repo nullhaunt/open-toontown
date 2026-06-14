@@ -18,13 +18,12 @@ namespace Toontown::Math
     {
     }
 
-    friend constexpr bool operator==( const Point3&, const Point3& ) = default;
+    friend constexpr bool operator==( const Point3 &,
+                                      const Point3 & ) = default;
   };
 
-  /**
-   * Panda semantics: subtracting two positions yields a displacement.
-   */
-  [[nodiscard]] constexpr Vec3 operator-( const Point3& a, const Point3& b )
+  // Panda semantics: subtracting two positions yields a displacement.
+  [[nodiscard]] constexpr Vec3 operator-( const Point3 & a, const Point3 & b )
   {
     return { a.m_X - b.m_X, a.m_Y - b.m_Y, a.m_Z - b.m_Z };
   }

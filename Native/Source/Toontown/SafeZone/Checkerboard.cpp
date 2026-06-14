@@ -143,17 +143,17 @@ namespace Toontown::SafeZone
   }
 
   void CheckerTile::SetAdjacent(
-    const std::vector<std::optional<int>>& adjList )
+    const std::vector<std::optional<int>> & adjList )
   {
-    for ( const auto& x : adjList )
+    for ( const auto & x : adjList )
     {
       m_Adjacent.push_back( x );
     }
   }
 
-  void CheckerTile::SetJumps( const std::vector<std::optional<int>>& jumpList )
+  void CheckerTile::SetJumps( const std::vector<std::optional<int>> & jumpList )
   {
-    for ( const auto& x : jumpList )
+    for ( const auto & x : jumpList )
     {
       m_Jumps.push_back( x );
     }
@@ -192,7 +192,7 @@ namespace Toontown::SafeZone
     }
   }
 
-  CheckerTile& Checkerboard::GetSquare( int arrayLoc )
+  CheckerTile & Checkerboard::GetSquare( int arrayLoc )
   {
     return m_SquareList[ arrayLoc ];
   }
@@ -230,7 +230,7 @@ namespace Toontown::SafeZone
     return result;
   }
 
-  void Checkerboard::SetStates( const std::vector<int>& squares )
+  void Checkerboard::SetStates( const std::vector<int> & squares )
   {
     for ( int x = 0; x < 32; ++x )
     {
@@ -240,13 +240,13 @@ namespace Toontown::SafeZone
 
   void Checkerboard::Delete() {}
 
-  std::vector<CheckerTile>& Checkerboard::SquareList()
+  std::vector<CheckerTile> & Checkerboard::SquareList()
   {
     return m_SquareList;
   }
 }  // namespace Toontown::SafeZone
 
-void RegisterSafeZoneCheckerboard( nanobind::module_& safeZone )
+void RegisterSafeZoneCheckerboard( nanobind::module_ & safeZone )
 {
   using namespace Toontown::SafeZone;
 
@@ -313,12 +313,12 @@ void RegisterSafeZoneCheckerboard( nanobind::module_& safeZone )
     // to stay real lists.
     .def_prop_ro(
       "squareList",
-      []( Checkerboard& board )
+      []( Checkerboard & board )
       {
         const nanobind::handle self = nanobind::find( &board );
         nanobind::list         squares;
 
-        for ( auto& tile : board.SquareList() )
+        for ( auto & tile : board.SquareList() )
         {
           squares.append( nanobind::cast(
             &tile, nanobind::rv_policy::reference_internal, self ) );
