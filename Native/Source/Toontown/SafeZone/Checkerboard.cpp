@@ -174,7 +174,9 @@ namespace Toontown::SafeZone
     return m_Tile;
   }
 
-  void CheckerTile::Delete() {}
+  void CheckerTile::Delete()
+  {
+  }
 
   Checkerboard::Checkerboard()
   {
@@ -238,7 +240,9 @@ namespace Toontown::SafeZone
     }
   }
 
-  void Checkerboard::Delete() {}
+  void Checkerboard::Delete()
+  {
+  }
 
   std::vector<CheckerTile> & Checkerboard::SquareList()
   {

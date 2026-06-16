@@ -17,14 +17,14 @@ namespace Toontown::Util
   class Datagram
   {
    public:
-    void AddUInt8( std::uint8_t v )
+    void UInt8( std::uint8_t v )
     {
       m_Data.push_back( static_cast<char>( v ) );
     }
 
     // Panda3D add_fixed_string: exactly `size` bytes -- truncate if longer,
     // null-pad if shorter.
-    void AddFixedString( const std::string & s, std::size_t size )
+    void FixedString( const std::string & s, std::size_t size )
     {
       if ( s.size() >= size )
       {
@@ -37,7 +37,7 @@ namespace Toontown::Util
       }
     }
 
-    [[nodiscard]] const std::string & GetBytes() const
+    [[nodiscard]] const std::string & Bytes() const
     {
       return m_Data;
     }

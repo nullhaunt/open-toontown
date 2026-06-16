@@ -21,6 +21,7 @@ nanobind_add_module(toontown_cpp
         Source/Toontown/Math/MathBoundary.cpp
         Source/Toontown/ClassicChars/CCharPaths.cpp
         Source/Toontown/Suit/SuitDNA.cpp
+        Source/Toontown/Toon/ToonDNA.cpp
 )
 
 target_include_directories(toontown_cpp PRIVATE Include Source)

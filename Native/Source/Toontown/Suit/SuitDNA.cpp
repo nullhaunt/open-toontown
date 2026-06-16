@@ -91,7 +91,7 @@ namespace Toontown::Suit
     // Inclusive, matching Python randint: a + _randBelow(b - a + 1).
     int RandomInteger( int min, int max )
     {
-      return static_cast<int>( Random().Integer( min, max ) );
+      return static_cast<int>( Random().Int( min, max ) );
     }
 
     int IndexOf( const std::vector<std::string> & v, const std::string & s )
@@ -186,16 +186,16 @@ namespace Toontown::Suit
   std::string SuitDNA::MakeNetString() const
   {
     Util::Datagram datagram;
-    datagram.AddFixedString( m_Type, 1 );
+    datagram.FixedString( m_Type, 1 );
 
     if ( m_Type == "s" )
     {
-      datagram.AddFixedString( m_Name, 3 );
-      datagram.AddFixedString( m_Dept, 1 );
+      datagram.FixedString( m_Name, 3 );
+      datagram.FixedString( m_Dept, 1 );
     }
     else if ( m_Type == "b" )
     {
-      datagram.AddFixedString( m_Dept, 1 );
+      datagram.FixedString( m_Dept, 1 );
     }
     else
     {
@@ -203,7 +203,7 @@ namespace Toontown::Suit
         "SuitDNA::MakeNetString: undefined/unknown type" );
     }
 
-    return datagram.GetBytes();
+    return datagram.Bytes();
   }
 
   void SuitDNA::MakeFromNetString( const std::string & bytes )
@@ -388,7 +388,6 @@ void RegisterSuitDNA( nanobind::module_ & suit )
           self->m_Type = "u";
         }
       },
-
       nanobind::arg( "str" )  = nanobind::none(),
       nanobind::arg( "type" ) = nanobind::none() )
 
@@ -407,8 +406,9 @@ void RegisterSuitDNA( nanobind::module_ & suit )
     .def(
       "makeFromNetString",
       []( SuitDNA & dna, nanobind::bytes bytes )
-      { dna.MakeFromNetString( std::string( bytes.c_str(), bytes.size() ) ); },
-
+      {
+        dna.MakeFromNetString( std::string( bytes.c_str(), bytes.size() ) );
+      },
       nanobind::arg( "string" ) )
 
     .def(

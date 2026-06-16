@@ -1,6 +1,7 @@
 #include "Toontown/ClassicChars/CCharPaths.hpp"
 
 #include <stdexcept>
+#include <format>
 
 #include <nanobind/stl/string.h>
 #include <nanobind/stl/vector.h>
@@ -62,7 +63,8 @@ namespace Toontown::ClassicChars
       return donaldDock;
     }
 
-    throw std::out_of_range( "CCharPaths: unknown key " + key );
+    throw std::out_of_range(
+      std::format( "CCharPaths: unknown key: {}", key ) );
   }
 
   Math::Point3 GetNodePos( const std::string & node, const CharPaths & paths )

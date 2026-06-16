@@ -16,4 +16,7 @@ NB_MODULE( toontown_cpp, module )
 
   auto suit = module.def_submodule( "suit" );
   RegisterSuitDNA( suit );
+
+  auto toon = module.def_submodule( "toon" );
+  RegisterToonDNA( toon );
 }

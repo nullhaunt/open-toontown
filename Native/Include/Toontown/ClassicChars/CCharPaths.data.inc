@@ -1,6 +1,3 @@
-// AUTO-GENERATED from toontown/classicchars/CCharPaths.py. Do not edit by hand.
-// Regenerate with gen_ccharpaths.py if the source data changes.
-
 static const CharPaths mickey = {
   // nodes: name -> { position, neighbours }
   {

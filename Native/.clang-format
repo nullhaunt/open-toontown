@@ -29,8 +29,9 @@ AlignConsecutiveShortCaseStatements:
 AlignEscapedNewlines: LeftWithLastLine
 AllowBreakBeforeNoexceptSpecifier: Always
 AllowShortEnumsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: None
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakBeforeMultilineStrings: false
 BinPackArguments: false
@@ -47,15 +48,14 @@ ContinuationIndentWidth: 2
 EnumTrailingComma: Insert
 ExperimentalAutoDetectBinPacking: true
 IncludeBlocks: Preserve
-IndentPPDirectives: AfterHash
+IndentPPDirectives: BeforeHash
 InsertBraces: true
 InsertNewlineAtEOF: true
 NamespaceIndentation: All
 PackConstructorInitializers: BinPack
 DerivePointerAlignment: false
-ReferenceAlignment: Middle
 PointerAlignment: Middle
-QualifierAlignment: Left
+ReferenceAlignment: Middle
 SortIncludes:
   Enabled: false
 SpaceAroundPointerQualifiers: Both

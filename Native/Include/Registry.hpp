@@ -7,3 +7,4 @@ void RegisterSafeZoneCheckerboard( nanobind::module_ & safeZone );
 void RegisterMathBoundary( nanobind::module_ & math );
 void RegisterClassicCharsCCharPaths( nanobind::module_ & classicChars );
 void RegisterSuitDNA( nanobind::module_ & suit );
+void RegisterToonDNA( nanobind::module_ & toon );

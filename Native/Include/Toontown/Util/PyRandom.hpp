@@ -125,7 +125,7 @@ namespace Toontown::Util
       return r;
     }
 
-    int64_t Integer( std::int64_t a, std::int64_t b )  // Inclusive
+    std::int64_t Int( std::int64_t a, std::int64_t b )  // Inclusive
     {
       return a + static_cast<std::int64_t>(
                    Below( static_cast<std::uint64_t>( b - a + 1 ) ) );
